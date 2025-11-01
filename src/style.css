@@ -27,3 +27,26 @@
 .btn {
   @apply px-6 py-2 rounded-md shadow-md text-white hover:brightness-50;
 }
+.card {
+  @apply 
+    bg-blue-950
+    text-white 
+    rounded-4xl 
+    shadow-lg 
+    hover:shadow-xl 
+    flex 
+    flex-col 
+    items-center 
+    justify-center 
+    p-6 
+    m-2
+    transition-all 
+    duration-300
+    h-auto 
+    w-full
+    sm:w-100 
+    md:w-56 
+    lg:w-80 
+    xl:w-96;
+}
+

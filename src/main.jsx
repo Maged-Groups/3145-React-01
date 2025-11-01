@@ -5,4 +5,4 @@ import "./style.css";
 
 import App from "./App";
 
-createRoot(document.getElementById("root")).render(<App></App>);
+createRoot(root).render(<App></App>);
