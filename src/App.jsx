@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import TopNav from "./layout/TopNav";
 import { Routes, Route } from "react-router";
 import Counter from "./pages/Counter";
@@ -8,24 +9,16 @@ import P404 from "./pages/P404";
 import Products from "./pages/Products";
 import Users from "./pages/Users";
 import User from "./pages/User";
-
+=======
+import { useState } from "react";
+import FirstTry from "./FirstTry";
+import Challange from "./FirstTry";
+// import RegisterForm from "./registerForm";
+>>>>>>> 38290ba85167d97a1008f8c7d3458f36437d3d6c
 export default function App() {
   return (
-    <div className="h-screen flex flex-col">
-      <TopNav />
-
-      <div className="h-full">
-        <Routes>
-          <Route path="/counter" element={<Counter />} />
-          <Route path="/counter-2" element={<Counter2 />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/users/:id" element={<User />} />
-          <Route path="/auth/register" element={<RegisterForm />} /> 
-          <Route path="/auth/login" element={<Login />} /> 
-          <Route path="*" element={<P404 />} /> 
-        </Routes>
-      </div>
-    </div>
-  );
+<Challange></Challange>
+/* <RegisterForm></RegisterForm> */
+  )
 }
+
