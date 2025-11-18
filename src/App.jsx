@@ -8,7 +8,6 @@ import P404 from "./pages/P404";
 import Products from "./pages/Products";
 import Users from "./pages/Users";
 import User from "./pages/User";
-
 export default function App() {
   return (
     <div className="h-screen flex flex-col">

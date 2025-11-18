@@ -35,11 +35,7 @@ export default function PasswordValidator({ password, passwordConfirmation }) {
         <span>{/^.{8,16}$/.test(password) ? "✔" : "❌"}</span>
         <span>Between 8 and 16</span>
       </div>
-
-      <div>
-        <span>{password === passwordConfirmation ? "✔" : "❌"}</span>
-        <span>Password match</span>
-      </div>
+      
     </div>
   );
 }
