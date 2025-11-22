@@ -2,8 +2,10 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import ErrorComponent from "../components/messages/Error";
+import { loginUser } from "../lib/redux/userSlice";
+import { useDispatch } from "react-redux";
 
-export default function Login( ) {
+export default function Login() {
   const [error, SetError] = useState("");
 
   const usernameRef = useRef(null);
@@ -12,61 +14,64 @@ export default function Login( ) {
   // Create instance function from the useNavigate hook to be used inside the code
   const navigate = useNavigate();
 
-  console.log('navigate', navigate)
+  const dispatch = useDispatch();
+
+  console.log("navigate", navigate);
 
   const handleLogin = async () => {
-
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
 
-    console.log('username', username)
-    console.log('password', password)
+    console.log("username", username);
+    console.log("password", password);
 
     const credintials = {
       username,
-      password
-    }
+      password,
+    };
 
-    console.log('credintials', credintials);
+    console.log("credintials", credintials);
     const body = JSON.stringify(credintials);
 
     // Fetch Data
     const api = `https://dummyjson.com/auth/login`;
     const init = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
     };
 
     fetch(api, init)
-      .then(res => res.json())
-      .then(data => {
-        if (data.id) {
+      .then((res) => res.json())
+      .then((responseData) => {
+        if (responseData.id) {
           // Success
-          console.log('data after success', data.firstName);
+          console.log("responseData after success", responseData.firstName);
 
-         
+          //  Send user responseData to redux
+          dispatch(loginUser(responseData));
 
-          navigate('/');
+          // Save data to local storage
+
+          localStorage.loggedinUser = JSON.stringify(responseData);
+
+          navigate("/");
         } else {
-          SetError(data.message);
-          toast.error(<ErrorComponent message={data.message} />, {
+          SetError(responseData.message);
+          toast.error(<ErrorComponent message={responseData.message} />, {
             icon: false,
-            closeButton: false
+            closeButton: false,
           });
-          // toast(data.message);
-          // toast.error(data.message);
-          // toast.success(data.message, {
+          // toast(responseData.message);
+          // toast.error(responseData.message);
+          // toast.success(responseData.message, {
           //   theme: 'light'
           // });
-          // toast.warning(data.message);
-          // toast.info(data.message);
+          // toast.warning(responseData.message);
+          // toast.info(responseData.message);
         }
-      })
-
-  }
-
-
+      });
+  };
 
   return (
     <div className="registration-form mx-auto mt-7 bg-white shadow rounded-xl p-6 space-y-4">
@@ -76,7 +81,9 @@ export default function Login( ) {
 
       <div>
         <div className="form-group flex flex-col space-y-1">
-          <label htmlFor="username" className="text-gray-700 font-medium">Username</label>
+          <label htmlFor="username" className="text-gray-700 font-medium">
+            Username
+          </label>
           <input
             ref={usernameRef}
             type="text"
@@ -87,7 +94,9 @@ export default function Login( ) {
         </div>
 
         <div className="form-group flex flex-col space-y-1">
-          <label htmlFor="password" className="text-gray-700 font-medium">Password</label>
+          <label htmlFor="password" className="text-gray-700 font-medium">
+            Password
+          </label>
           <input
             ref={passwordRef}
             type="password"
@@ -98,19 +107,17 @@ export default function Login( ) {
         </div>
 
         <div className="text-red-500 text-sm">
-
-          {error && <p className="text-red-600" >{error}</p>}
-
+          {error && <p className="text-red-600">{error}</p>}
         </div>
 
         <div className="form-group checkbox-group flex items-center space-x-2 mt-2 mb-2">
           <input type="checkbox" id="terms" name="terms" />
-          <label htmlFor="terms" className="text-gray-700 ">Remember Me</label>
+          <label htmlFor="terms" className="text-gray-700 ">
+            Remember Me
+          </label>
         </div>
 
-
         <button
-
           onClick={handleLogin}
           className="submit-btn mt-2 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
         >
